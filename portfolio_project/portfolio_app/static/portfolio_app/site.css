@@ -1,0 +1,77 @@
+/* Styles for the body */
+body {
+    background-color: white
+}
+
+/* Styles for customizing project cards */
+#card-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 25px;
+
+}
+
+#card-wrapper {
+    padding: 10px;
+    border: 1px solid gainsboro;
+}
+
+#projects-header {
+    text-align: center;
+    margin: 25px auto;
+    padding: 25px 0px;
+    background-color: rgb(181, 16, 49);
+    color: white;
+    text-shadow: 1px 2px black;
+}
+
+/* Styles for form labels */
+form label {
+    display: block;
+    margin-top: 15px;
+}
+
+/* Styles for the header and navbar */
+header {
+    margin-bottom: 20px;
+}
+
+#navbar-header {
+    font-size: larger;
+    text-align: center;
+    margin: 10px auto;
+    padding: 10px 0px;
+    background-color: rgb(181, 16, 49);
+}
+
+a.nav-link,
+a.nav-link:visited {
+    color: white;
+}
+
+a.nav-link:hover,
+a.nav-link:active {
+    color: black;
+}
+
+/* Styles for the word count hint */
+p#word-count-hint {
+    color: red;
+    font-size: small;
+}
+
+/* Styles to customize pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0px;
+    font-size: 1.3em;
+}
+
+/* Styles for smaller screens */
+@media screen and (max-width: 900px) {
+    #msgcontainer {
+        width: 100%;
+    }
+}

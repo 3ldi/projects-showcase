@@ -1,0 +1,100 @@
+{% extends 'portfolio_app/layout.html' %}
+{% load static %}
+
+
+{% block body %}
+
+<div class="card mb-4 mx-auto border-0" id="welcome-card" style="max-width: 600px;">
+    <div class="row g-0">
+        <div class="col-md-5">
+            <img src="{% static 'portfolio_app/eldi-profile-new.png' %}" class="img-fluid rounded-circle" id="profile-picture"
+                alt="eldi profile picture">
+        </div>
+        <div class="col-md-7">
+            <div class="card-body">
+                <h4 class="card-title"> Welcome </h4>
+                <p class="card-text">My name is Eldi. I like football, building web apps and websites.</p>
+                <p class="card-text">My favorite tools are HTML5, CSS3, Bootstrap, JavaScript, and Django. I am always looking for opportunities to use these tools and learn others along the way.</p>
+                <p>Check out some of my projects below and contact me with any questions.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-grid gap-2 d-md-flex justify-content-md-center">
+    <button class="btn btn-outline-dark mt-3" id="get-in-touch">Get in touch</button>
+</div>
+
+{% comment %} 
+    The following form is by default hidden. If needed, its fields are created
+    through JavaScript and dispayed on the screen.
+{% endcomment %}
+<div class="container col-6 mb-3" id="contact-form-div">
+    
+    <form class="form-group" method="POST" action="{% url 'index' %}" id="contact-form">
+        {% csrf_token %}
+            <div class="alert alert-secondary">
+                <center>
+                    <h4>Contact me</h4>
+                </center>
+                {{ form }}
+                <p>Words used: <strong><span id="words-left">0</span></strong>/150</p>
+                <p id="word-count-hint">Word limit reached! Please, keep the message under 150 words<p>
+            </div>
+        <div class="d-grid gap-2 d-md-block">
+            <button class="btn btn-success" type="submit" id="save-msg">Send Message</button>
+            <button class="btn btn-warning" type="button" id="cancel-msg">Cancel</button>
+        </div> 
+    </form>
+</div>
+
+
+<h2 class="alert" id="projects-header">Projects</h2>
+
+{% comment %} load the projects from database {% endcomment %}
+<div class="row" id="card-container">
+    {% for project in projects %}
+    <div class="card col-sm-4" id="card-wrapper">
+        {% if user.is_authenticated %}
+            <div class="card-header bg-dark d-grid gap-2 d-md-flex justify-content-md-end">
+                <a class="btn btn-warning" href="{% url 'update_project' project.id %}" role="button">Edit</a>
+
+                <a class="btn btn-danger" href="{% url 'delete_project' project.id %}" role="button">Delete</a>
+            </div>
+        {% endif %}
+        <img src="{{ project.image.url }}" class="rounded-top card-img-top" alt="{{ project.title }} screenshot">
+        <div class="card-body">
+            <h5 class="card-title">{{ project.title }}</h5>
+            <p class="card-text">{{ project.description }}</p>
+        </div>
+
+        {% comment %} check if project url exists {% endcomment %}
+        {% if project.project_url %}
+        <div class="card-footer bg-transparent">
+            <a href="{{ project.project_url }}" class="btn btn-primary" target="_blank">View this project</a>
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+
+{% comment %} add pagination {% endcomment %}
+<div class="pagination">
+    <span class="step-links">
+        {% if projects.has_previous %}
+        <a href="?page=1">&laquo; first</a>
+        <a href="?page={{ projects.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ projects.number }} of {{ projects.paginator.num_pages }}.
+        </span>
+
+        {% if projects.has_next %}
+        <a href="?page={{ projects.next_page_number }}">next</a>
+        <a href="?page={{ projects.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "portfolio_app/layout.html" %}
+{% load static %}
+
+<div class="container">
+{% block body %}
+    {% comment %} functionality only if user is logged in {% endcomment %}
+    <h3 class="mb-3">Add a new project</h3>
+
+        <form class="form-control" action="{% url 'new_project' %}" method="POST" enctype="multipart/form-data" autocomplete="off">
+            {% csrf_token %}
+            
+            {{ form.as_p }}
+
+            <input type="submit" class="btn btn-success mb-3" value="Add project">
+        </form>
+
+{% endblock%}
+</div>

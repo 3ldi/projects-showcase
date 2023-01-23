@@ -1,0 +1,55 @@
+{% extends "portfolio_app/layout.html" %}
+{% load static %}
+
+{% block body %}
+        {% comment %} load all messages {% endcomment %}
+    <center>
+        <div class="alert alert-primary col-6">
+        <h3>User Messages</h3>
+        <h5> Total: <span class="btn btn-info">{{ total_nr_msg }}</span></h5>
+        </div>
+    </center>
+    
+    {% for msg in messages %}
+        
+        <div class="alert alert-dark col-8 mx-auto" id="msgcontainer">
+            <div class=" alert alert-light col-8">
+                <p> <strong>From:</strong> {{ msg.name }} <span class="btn btn-light">{{ msg.email }}</span> <p> 
+                <p> <strong>Sent on:</strong> {{ msg.timestamp }}</p>
+            </div>
+            <p>{{ msg.message_body }}</p>
+
+            {% comment %} display the delete button {% endcomment %}
+            <div class="card-header d-grid gap-2 d-md-flex justify-content-md-end">
+                <a class="btn btn-danger" href="{% url 'delete_message' msg.id %}" role="button">Delete</a>
+            </div>
+
+        </div>
+    {% empty %}
+    <center>
+        <div class="alert alert-warning col-8">
+            <p> No messages to display</p>
+        </div>
+    </center>
+    {% endfor %}
+
+    {% comment %} add pagination {% endcomment %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if messages.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ messages.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ messages.number }} of {{ messages.paginator.num_pages }}.
+            </span>
+
+            {% if messages.has_next %}
+            <a href="?page={{ messages.next_page_number }}">next</a>
+            <a href="?page={{ messages.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+{% endblock %}
