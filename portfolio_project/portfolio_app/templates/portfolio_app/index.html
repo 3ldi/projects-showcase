@@ -29,7 +29,7 @@
     The following form is by default hidden. If needed, its fields are created
     through JavaScript and dispayed on the screen.
 {% endcomment %}
-<div class="container col-6 mb-3" id="contact-form-div">
+<div class="container col-8 mb-3" id="contact-form-div">
     
     <form class="form-group" method="POST" action="{% url 'index' %}" id="contact-form">
         {% csrf_token %}
@@ -74,6 +74,14 @@
             <a href="{{ project.project_url }}" class="btn btn-primary" target="_blank">View this project</a>
         </div>
         {% endif %}
+
+        {% comment %} check if github url exists {% endcomment %}
+        {% if project.github_url %}
+        <div class="card-footer bg-transparent">
+            <a href="{{ project.github_url }}" class="btn btn-primary" target="_blank">View code on GitHub</a>
+        </div>
+        {% endif %}
+
     </div>
     {% endfor %}
 </div>

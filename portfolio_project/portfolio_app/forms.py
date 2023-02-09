@@ -7,7 +7,7 @@ from .models import Project, Message
 class NewProjectForm(ModelForm):
     class Meta:
         model = Project
-        fields = ('title', 'description', 'image', 'project_url')
+        fields = ('title', 'description', 'image', 'project_url', 'github_url')
 
     #  function to add a bootsrap class to all fields
     def __init__(self, *args, **kwargs):

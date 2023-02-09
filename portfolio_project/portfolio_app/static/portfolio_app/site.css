@@ -74,4 +74,8 @@ p#word-count-hint {
     #msgcontainer {
         width: 100%;
     }
+
+    #contact-form-div {
+        width: 90%;
+    }
 }

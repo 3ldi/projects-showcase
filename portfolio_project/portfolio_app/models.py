@@ -7,6 +7,7 @@ class Project(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to='portfolio_app/images/', blank=True)
     project_url = models.URLField(blank=True)
+    github_url = models.URLField(blank=True)
 
     def __str__(self):
         return self.title
